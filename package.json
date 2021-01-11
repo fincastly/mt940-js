@@ -1,5 +1,5 @@
 {
-  "name": "mt940-js",
+  "name": "@fincastly/mt940-js",
   "version": "1.1.0",
   "description": "An isomorphic Javascript library for working with MT940 format",
   "main": "./lib/index.js",
