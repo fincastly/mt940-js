@@ -16,8 +16,8 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    npm install --production
-    npm buid
+    npm install
+    npm run build
     cp ./package.json $(Build.ArtifactStagingDirectory)/package.json
     cp ./lib $(Build.ArtifactStagingDirectory)/lib -r
   displayName: 'npm install and build'
