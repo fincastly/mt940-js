@@ -127,7 +127,8 @@ const transactionInfoTag: Tag = {
         transaction.isExpense = incomeTransactionCodes.indexOf(code) === -1;
 
         if (options.middlewares?.transactionInfo) {
-            Object.assign(transaction, options.middlewares.transactionInfo(creditMark, code, bankReference));
+            const override = options.middlewares.transactionInfo(creditMark, code, bankReference);
+            Object.assign(transaction, override);
         }
 
         transaction.id = options.getTransactionId!(transaction, state.transactionIndex);
