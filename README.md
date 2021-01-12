@@ -17,7 +17,8 @@
 * returns `Promise` with list of [Statement](src/index.ts#L49).
 
 ##### ReadOptions
-* `getTransactionId(transaction, index)` - a custom generator for transaction id. By default it's:
+* `getTransactionId(transaction, index)` - a custom generator for transaction id. applied after transactionInfo middleware. By default it's:
+
 ```js
 /**
 * @description version 0.5.x
@@ -38,6 +39,20 @@ function getTransactionId (transaction, index) {
 */
 function getTransactionId (transaction, index) {
     return md5(JSON.strinfigy(transaction));
+}
+```
+* `middlewares.transactionInfo()` - a middleware that allows overriding transaction info, should you need some custom logic _e.g. some banks use creditMark as an indication whether a transaction is an expense or not_
+
+```js
+/**
+* @description version 0.6.x+
+* @param {string} creditMark
+* @param {string} code
+* @param {string} bankReference
+* @returns {Transaction}
+*/
+function transactionInfo(creditMark, code, bankReference) {
+    // your middleware returning Transaction overrides here...
 }
 ```
 
@@ -63,7 +78,7 @@ import * as mt940 from 'mt940-js';
 
 function onFileSelected (file) {
     const reader = new FileReader();
-    
+
     reader.onload = () => {
         mt940.read(reader.result).then((statements) => {
             // List of the Statements

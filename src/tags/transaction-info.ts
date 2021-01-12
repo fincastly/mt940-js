@@ -125,7 +125,12 @@ const transactionInfoTag: Tag = {
         transaction.amount = parseFloat(amount.replace(commaPattern, dotSymbol));
         transaction.code = code;
         transaction.isExpense = incomeTransactionCodes.indexOf(code) === -1;
-        transaction.id = options.getTransactionId(transaction, state.transactionIndex);
+
+        if (options.middlewares?.transactionInfo) {
+            Object.assign(transaction, options.middlewares.transactionInfo(creditMark, code, bankReference));
+        }
+
+        transaction.id = options.getTransactionId!(transaction, state.transactionIndex);
     }
 };
 
