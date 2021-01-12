@@ -18,6 +18,12 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
+    yarn
+    yarn add -D jest-standard-reporter
+    yarn jest --reporters="jest-standard-reporter"
+  displayName: 'test'
+
+- script: |
     npm install
     npm run build
     cp ./package.json $(Build.ArtifactStagingDirectory)/package.json
