@@ -58,7 +58,10 @@ export interface Statement {
 }
 
 export interface ReadOptions {
-    getTransactionId(transaction: Transaction, index: number): string;
+    middlewares?: {
+        transactionInfo?: (creditMark: string, code: string, bankReference: string) => Transaction;
+    };
+    getTransactionId?(transaction: Transaction, index: number): string;
 }
 
 export function read(input: ArrayBuffer | Buffer, options?: ReadOptions): Promise<Statement[]> {
