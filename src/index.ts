@@ -58,11 +58,11 @@ export interface Statement {
 }
 
 export interface ReadOptions {
+    readMultipleInformationForAccountOwnerTagsPerTransaction?: boolean;
     middlewares?: {
         transactionInfo?: (creditMark: string, code: string, bankReference: string) => Transaction;
     };
     getTransactionId?(transaction: Transaction, index: number): string;
-    readMultipleInformationForAccountOwnerTagsPerTransaction?: boolean;
 }
 
 export function read(input: ArrayBuffer | Buffer, options?: ReadOptions): Promise<Statement[]> {

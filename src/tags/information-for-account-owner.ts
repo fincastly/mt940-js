@@ -69,7 +69,8 @@ const informationTag: Tag = {
             if (currentTransaction) {
                 currentTransaction.description = `${currentTransaction.description || ''}${informationToAccountOwner}`;
             } else {
-                statement.additionalInformation = `${statement.additionalInformation|| ''}${informationToAccountOwner}`;
+                statement.additionalInformation = `${statement.additionalInformation ||
+                    ''}${informationToAccountOwner}`;
             }
         }
     }
