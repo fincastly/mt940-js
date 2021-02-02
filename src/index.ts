@@ -12,7 +12,6 @@ export interface Tag {
 }
 
 export interface State {
-    asdf: string;
     pos: number;
     statementIndex: number;
     transactionIndex: number;

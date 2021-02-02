@@ -64,9 +64,8 @@ const informationTag: Tag = {
             }
         } else {
             // UNLESS we are instructed to readMultipleInformationPerAccount
-            // then we only assume :86: pertains to additional information
-            // if either closing balance is already present
-            // otherwise we assume it's another line for last transaction
+            // - then we append the current info to existing transaction
+            // or to statement additionalInformation
             if (currentTransaction) {
                 currentTransaction.description = `${currentTransaction.description || ''}${informationToAccountOwner}`;
             } else {
