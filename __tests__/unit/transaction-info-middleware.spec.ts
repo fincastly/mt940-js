@@ -2,8 +2,6 @@ import * as fs from 'fs';
 import {read, ReadOptions, Transaction} from '../../src';
 import {toArrayBuffer} from './utils';
 
-declare const require: (path: string) => any;
-
 function getTestData(isBuffer: boolean): Buffer | ArrayBuffer {
     const buffer: Buffer = fs.readFileSync('./__tests__/cases/ing-1.mta');
 

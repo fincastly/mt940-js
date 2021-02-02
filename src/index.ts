@@ -12,6 +12,7 @@ export interface Tag {
 }
 
 export interface State {
+    asdf: string;
     pos: number;
     statementIndex: number;
     transactionIndex: number;
@@ -62,6 +63,7 @@ export interface ReadOptions {
         transactionInfo?: (creditMark: string, code: string, bankReference: string) => Transaction;
     };
     getTransactionId?(transaction: Transaction, index: number): string;
+    readMultipleInformationForAccountOwnerTagsPerTransaction?: boolean;
 }
 
 export function read(input: ArrayBuffer | Buffer, options?: ReadOptions): Promise<Statement[]> {
