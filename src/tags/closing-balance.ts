@@ -21,6 +21,10 @@ const token2Length: number = token2.length;
 const closingBalanceTag: BalanceInfoTag = {
     ...openingBalanceTag,
 
+    open(state: State) {
+        state.transactionIndex = -1;
+    },
+
     readToken(state: State) {
         const isToken1: boolean = compareArrays(token1, 0, state.data, state.pos, token1Length);
         const isToken2: boolean = !isToken1 && compareArrays(token2, 0, state.data, state.pos, token2Length);

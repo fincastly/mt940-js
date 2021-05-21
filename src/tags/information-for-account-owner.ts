@@ -1,4 +1,4 @@
-import {State, Statement, Tag, Transaction} from '../index';
+import {ReadOptions, State, Statement, Tag, Transaction} from '../index';
 import {colonSymbolCode, newLineSymbolCode, returnSymbolCode, spaceSymbolCode} from '../tokens';
 import bufferToText from '../utils/buffer-to-text';
 import compareArrays from '../utils/compare-arrays';
@@ -20,7 +20,7 @@ const informationTag: Tag = {
         return state.pos + tokenLength;
     },
 
-    close(state: State) {
+    close(state: State, options: ReadOptions) {
         const statement: Statement | undefined = state.statements[state.statementIndex];
 
         if (!statement) {
@@ -56,10 +56,22 @@ const informationTag: Tag = {
         // information about the statement as a whole rather than just about the transaction.
         // Or, if no transactions at all have been encountered, and we see an :86: field, it
         // then must pertain to the account statement.
-        if (currentTransaction && !currentTransaction.description) {
-            currentTransaction.description = informationToAccountOwner;
+        if (options.readMultipleInformationForAccountOwnerTagsPerTransaction !== true) {
+            if (currentTransaction && !currentTransaction.description) {
+                currentTransaction.description = informationToAccountOwner;
+            } else {
+                statement.additionalInformation = informationToAccountOwner;
+            }
         } else {
-            statement.additionalInformation = informationToAccountOwner;
+            // UNLESS we are instructed to readMultipleInformationPerAccount
+            // - then we append the current info to existing transaction
+            // or to statement additionalInformation
+            if (currentTransaction) {
+                currentTransaction.description = `${currentTransaction.description || ''}${informationToAccountOwner}`;
+            } else {
+                statement.additionalInformation = `${statement.additionalInformation ||
+                    ''}${informationToAccountOwner}`;
+            }
         }
     }
 };

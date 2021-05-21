@@ -58,6 +58,7 @@ export interface Statement {
 }
 
 export interface ReadOptions {
+    readMultipleInformationForAccountOwnerTagsPerTransaction?: boolean;
     middlewares?: {
         transactionInfo?: (creditMark: string, code: string, bankReference: string) => Transaction;
     };
